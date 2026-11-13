@@ -1,0 +1,20 @@
+# XRA-Lite drift watch-roots — BROADER than the allowlist.
+#
+# The monthly drift report (sync/import-upstream.sh) diffs upstream OLD..NEW limited to these
+# paths. Intentionally wider than allowlist.txt so that files ADDED or RENAMED *near* the app
+# surface for human/architect review — even ones the allowlist wouldn't capture yet (e.g. a new
+# top-level renderer folder, a new root entry HTML, a moved core script).
+#
+# One path per line. Used as `git diff --find-renames --name-status OLD NEW -- <these>`.
+#
+css
+js
+three.js
+MMD.js
+images/XR Animator
+# wider net: catch new root entry points / moved core files / sibling renderer dirs
+XR_Animator.html
+settings.html
+XRA_node_server.js
+*.html
+*.js

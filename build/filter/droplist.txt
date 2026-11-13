@@ -1,0 +1,20 @@
+# XRA-Lite DROP list — paths removed AFTER the keep-pass (git-filter-repo --invert-paths).
+#
+# These are KEPT by the coarse directory allowlist (they live under js/) but are PROVEN dead
+# weight: a full tracking session (face + pose Normal AND Best + hands + expressions, two runs)
+# NEVER fetched them. Measurement-driven, evidence in /tmp/xra-hits.log (2026-10-01).
+#
+# Format: one entry per line. Lines are passed to filter-repo as --path (prefix/exact) or
+# --path-glob (if they contain glob chars). The sync script routes them. '#' comments OK here
+# (this file feeds --path args, NOT --replace-text).
+#
+# --- Legacy MediaPipe "Solutions" API (superseded by the Tasks-vision .task models we keep) ---
+glob:js/*_solution_*                     # pose/hands/face_mesh/holistic _solution_ wasm+data (~80MB)
+js/@mediapipe/holistic/                  # old Holistic Solutions model dir (64MB)
+js/@mediapipe/tasks/holistic_landmarker.task  # 13.7MB holistic Tasks model — never fetched (we use face+pose+hand separately)
+#
+# --- Object detection (EfficientDet/EfficientNet) — not avatar mocap (body-seg feature) ---
+glob:js/@mediapipe/tasks/efficientdet_*  # ~46MB
+glob:js/@mediapipe/tasks/efficientnet_*  # ~13MB
+# NOTE: js/@huggingface/transformers/.../efficientnet/ (small lib source files) are KEPT —
+# they're part of the transformers.js library the app uses, not standalone model binaries.

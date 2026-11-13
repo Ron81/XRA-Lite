@@ -1,0 +1,64 @@
+# XRA-Lite filter allowlist — DIRECTORY-based keep list for git-filter-repo
+#
+# One path per line. Consumed by: git-filter-repo --paths-from-file (via sync/import-upstream.sh).
+# These are the ONLY paths kept from upstream github.com/ButzYung/SystemAnimatorOnline.
+# Everything else (node_modules/, three.js legacy clutter? NO - three.js is KEPT, see below,
+# TEMP/, au3/, sound/, images/cdungeon, all legacy *.html entry points) is dropped.
+#
+# NOTE: filter-repo treats a bare path as a prefix match (dir or file). Directory entries keep
+# the whole subtree. This is deliberate — the app loads files via computed/runtime paths, so a
+# per-file allowlist would be unsound. Phase 2 smoke test ratifies/trims this list.
+#
+# --- Web entry + server ---
+XR_Animator.html
+XRA_node_server.js
+settings.html
+#
+# --- Small root config files the web boot chain probes (confirmed fetched at startup) ---
+# gadget.xml (718B): read for app version; a 404 here throws on .documentElement and halts boot.
+# project.json (15KB): web-mode project/path config. package.json/index.html/config_webkit (tiny)
+# kept for boot-probe safety. (path_demo.json legitimately 404s upstream too — not our concern.)
+gadget.xml
+project.json
+package.json
+index.html
+config_webkit_path_default.txt
+#
+# --- Styles ---
+css
+#
+# --- Core + app JS (whole js/ tree, incl. @mediapipe models + workers + mocap engine) ---
+# Phase 2 may trim js/@mediapipe legacy (holistic/, efficientdet/efficientnet) + any RPG/dungeon
+# JS once the 404-crawl proves them unused. Kept broad initially so nothing silently breaks.
+js
+#
+# --- VRM / 3D renderer (THREEX) — HARD dependency, loaded by MMD_SA.js import map ---
+three.js
+#
+# --- MMD/VRM bone-retarget + render pipeline ---
+MMD.js
+#
+# --- XR Animator app layer: animate.js, assets/, SA_project.json, translation.json ---
+images/XR Animator
+#
+# --- jThree (legacy MMD .pmx renderer) — KEPT (33MB). ---
+# Discontinued upstream, but the MMD_SA.js `if (MMD_SA.use_jThree){...}` block ALSO loads
+# renderer-agnostic core deps (js/one_euro_filter.js mocap smoothing, js/jszip.js, the chain to
+# js/audio_BPM.js). Dropping jThree + flipping use_jThree=false removed OneEuroFilter and broke
+# mocap (confirmed by smoke test 2026-10-01). A clean one-line subtractive drop is NOT possible,
+# so XRA-Lite KEEPS jThree to stay pristine (delete-only, zero code edits). Any real jThree
+# removal belongs in the SUCCESSOR project where a patch layer is allowed.
+jThree
+#
+# --- Default-scene asset packs: the default avatar/scene loads these at boot; a 404 here is a
+#     FATAL zip-loader ERROR that stalls boot at 88% (confirmed by human smoke test 2026-10-01).
+#     Kept at FILE level where the parent folder is huge clutter: ---
+sound
+images/cdungeon/item_icon.zip
+images/sprite_sheet.zip
+images/kiss_mark_red.png
+images/kiss_mark_red_o66.png
+# Speech-bubble skins (images/SB_*.png, 81KB): the settings/webcam menu renders AS a speech
+# bubble; a 404 here left the panel a black box (WebGL texture built from a 0-dim failed image).
+# Confirmed by human smoke test 2026-10-01. glob keeps the whole SB_ set.
+glob:images/SB_*.png

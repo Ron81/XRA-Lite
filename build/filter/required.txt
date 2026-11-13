@@ -1,0 +1,18 @@
+# XRA-Lite required-files gate — HARD FAIL list.
+#
+# After filtering, sync/import-upstream.sh asserts EVERY path below exists in the slim tree.
+# If any is missing (e.g. upstream renamed/moved it), the sync ABORTS LOUDLY rather than
+# publishing a broken slim repo. This is the primary catch for silent upstream drift.
+#
+# One repo-relative path per line (exact file paths, not dirs). Comments/blank lines ignored.
+#
+XR_Animator.html
+XRA_node_server.js
+css/main.css
+js/core.js
+js/core_extra.js
+MMD.js/MMD_SA.js
+images/XR Animator/animate.js
+three.js/three.module.min.js
+js/one_euro_filter.js
+js/mocap_lib_module.js

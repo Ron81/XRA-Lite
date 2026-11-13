@@ -1,0 +1,17 @@
+# XRA-Lite subtractive neutralizations — git-filter-repo --replace-text rules.
+#
+# ⚠️ git-filter-repo's --replace-text does NOT treat '#' as a comment — a bare '#' is a
+# REDACTION TRIGGER (replaces every '#' in the codebase with ***REMOVED***). These comment
+# lines are therefore STRIPPED by sync/import-upstream.sh before the file reaches filter-repo.
+# Do NOT pass this file to filter-repo directly; always go through the script.
+#
+# RULE: entries here may ONLY be SUBTRACTIVE — disabling/removing references to dropped-legacy
+# code. NEVER additive. Additive integration lives in the successor project.
+#
+# Format: literal:OLD==>NEW   (asserted present/absent after filtering by the sync script).
+#
+# --- CURRENTLY EMPTY ---
+# The jThree-drop neutralization (use_jThree=true->false) was REMOVED 2026-10-01: that flag
+# gates core mocap deps (OneEuroFilter, jszip, audio_BPM), not just the jThree renderer, so
+# flipping it broke mocap. XRA-Lite keeps jThree and stays a pure delete-only extract — no
+# active replacements. See filter/allowlist.txt (jThree section) + SESSION-STATE.md.
