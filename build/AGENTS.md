@@ -67,8 +67,7 @@ required by the pristine model — add them if they help your users:
 ## Hard rules for agents editing this project
 
 1. **The product tree must stay a pristine, byte-for-byte subset of upstream.** Never edit app
-   code, assets, or config to "fix" something. Any integration/patch belongs in the successor
-   project, never here.
+   code, assets, or config to "fix" something. Any integration/patch belongs in the origin project, never here.
 2. **Policy changes only.** You may edit the keep/drop policy (`filter/*.txt`) and this `build/`
    tooling. Replacements in `filter/replacements.txt` may be **subtractive only** (disabling
    references to dropped legacy code) — never additive.
