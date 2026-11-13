@@ -77,15 +77,16 @@ The trimming and the periodic re-sync from upstream are performed by an **automa
 **Reproduce it yourself.** The build tooling ships in [`build/`](build/) — the full guide
 (`build/GUIDE.md`), the sync script + vendored `git-filter-repo`, and the keep/drop policy. Like
 this README and `LICENSE`, `build/` is **our** addition and is **not** part of the pristine upstream
-subset. **Running this with an AI agent?** See [`build/AGENTS.md`](build/AGENTS.md) for the agent
+subset. 
+
+**Running this with an AI agent?** See [`build/AGENTS.md`](build/AGENTS.md) for the agent
 runbook (how to run it, how to verify, when to stop and ask a human).
 
 ## Running it
-
 ```
 node XRA_node_server.js      # serves on localhost (see the file header for the port)
 ```
-Then open `XR_Animator.html`, enable **Streamer mode → Webcam/Media**, and select your camera.
+Then open `XR_Animator.html`, use it like the original app, no changes.
 
 ## Attribution & License
 
